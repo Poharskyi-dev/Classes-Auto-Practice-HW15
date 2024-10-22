@@ -1,5 +1,6 @@
 package Classes;
 import java.time.LocalDate;
+import java.time.Period;
 
 public class Auto {
 
@@ -8,8 +9,9 @@ public class Auto {
     private double fuelConsumption;
     private LocalDate dateInspection;
     private int maxTankFullness;
+    java.time.LocalDate currentDate = java.time.LocalDate.now();
 
-    public Auto(){
+    public Auto() {
         System.out.println("unidentified auto created");
     }
 
@@ -41,19 +43,19 @@ public class Auto {
     }
 
 
-    public double getTankFullness () {
+    public double getTankFullness() {
         return this.tankFullness;
     }
 
-    public double getFuelConsumption () {
+    public double getFuelConsumption() {
         return this.fuelConsumption;
     }
 
-    public LocalDate getDateInspection () {
+    public LocalDate getDateInspection() {
         return this.dateInspection;
     }
 
-    public int getMaxTankFullness () {
+    public int getMaxTankFullness() {
         return this.maxTankFullness;
     }
 
@@ -65,8 +67,48 @@ public class Auto {
                 ", dateInspection=" + dateInspection +
                 '}';
     }
-}
 
+    public void driveAbility() {
+        if (tankFullness > 1) {
+            System.out.println("Lets go \uD83D\uDCA8\uD83D\uDCA8\uD83D\uDCA8");
+        } else {
+            System.out.println("Better to refuel this car!");
+        }
+    }
+
+    public void exploitionAbility() {
+        Period period = Period.between(dateInspection, currentDate);
+
+        if (period.getYears() > 2 || (period.getYears() == 2 && (period.getMonths() > 0 || period.getDays() > 0))) {
+            System.out.println("The technical inspection has expired, you need to go through it again");
+        } else if (period.getYears() < 2 || (period.getYears() == 2 && period.getMonths() == 0 && period.getDays() == 0)) {
+            System.out.println("The technical inspection is still valid");
+        } else {
+            System.out.println("==");
+        }
+
+        LocalDate endDate = dateInspection.plusYears(2);
+        Period remainingPeriod = Period.between(currentDate, endDate);
+
+        if (remainingPeriod.isNegative()){
+        } else {
+            System.out.println("Time remaining until two-year period: " +
+            remainingPeriod.getYears() + " years, " +
+            remainingPeriod.getMonths() + " months, and " +
+            remainingPeriod.getDays() + " days.");
+        }
+    }
+
+    public void howFarTravel() {
+        if (tankFullness > 1) {
+            double distance = (double) tankFullness / fuelConsumption * 100;
+            double roundedDistance = Math.round(distance * 100.0) / 100.0;
+            System.out.println("Enough gasoline for " + roundedDistance + " km");
+        } else {
+            System.out.println("Better to refuel this car!");
+        }
+    }
+}
 
 
 

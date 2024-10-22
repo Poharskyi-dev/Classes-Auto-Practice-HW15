@@ -32,5 +32,15 @@ public class Main {
 
         System.out.println(newAuto.toString());
         input.close();
+
+        newAuto.driveAbility();
+        newAuto.howFarTravel();
+        newAuto.exploitionAbility();
     }
+
+
+
+
+
+
 }
